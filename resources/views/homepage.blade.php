@@ -5,9 +5,12 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-        <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{route('userdata.store')}}">
+        <form name="add-form" id="add-form" method="post" action="{{route('userdata.store')}}">
             @csrf
-            
+            @if (session('success'))
+                <h6 class="alert alert-success">{!! session('success') !!}</h6>
+                <a href="/" class="btn btn-warning mt-3 border-0">Back to Home</a>
+            @endif
             <div class="card mt-5">
                 <div class="card-header">
                     <h1>Please insert your details</h1>
@@ -64,7 +67,15 @@
         <td>{{$user->name}}</td>
         <td>{{$user->age}}</td>
         <td>{{$user->hobby}}</td>
-        <td class="text-center"><button class="btn btn-warning me-2">View</button><button class="btn btn-success me-2">Edit</button><button class="btn btn-danger">Delete</button></td>
+        <td class="text-center d-flex justify-content-center">
+            <a href="{{ url('view/'.$user->id) }}" class="me-1 mb-4 btn btn-success">View</a>
+            <a href="{{ url('edit/'.$user->id) }}" class="me-1 mb-4 btn btn-primary">Edit</a>
+            <form action="{{ url('delete', $user->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+        </td>
 
       </tr>
     </tbody>

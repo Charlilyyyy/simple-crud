@@ -10,6 +10,5 @@ Route::get('/',[HomePageController::class,'index'])->name('home');
 Route::resource('/userdata',UserDataController::class);
 Route::get('/edit/{id}',[EditController::class,'edit'])->name('edit');
 Route::put('/update/{id}',[EditController::class,'update'])->name('update');
-Route::delete('/delete/{id}',[EditController::class,'delete'])->name('delete');
 Route::get('/view/{id}',[ReadController::class,'view'])->name('view');
 
